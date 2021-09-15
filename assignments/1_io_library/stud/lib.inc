@@ -11,7 +11,13 @@ string_length:
     ret
 
 print_string:
-    xor rax, rax
+    push rdi
+    call string_length
+    pop rsi
+    mov rdx, rax
+    mov rax, 1
+    mov rdi, 1
+    syscall
     ret
 
 
@@ -59,4 +65,27 @@ parse_int:
 
 
 string_copy:
+    push rdi
+    push rsi
+    push rdx
+    call string_length
+    pop rdx
+    pop rsi
+    pop rdi
+    cmp rax, rdx
+    jae .too_long
+
+    push rsi
+.loop:
+    mov dl, [rdi]
+    mov [rsi], dl
+    inc rdi
+    inc rsi
+    test dl, dl
+    jnz .loop    
+    pop rax
+    ret
+
+.too_long:
+    mov rax, 0
     ret
