@@ -5,6 +5,7 @@ import subprocess
 import sys
 import re
 import sys
+import traceback
 from subprocess import CalledProcessError, Popen, PIPE
 from termcolor import colored
 
@@ -470,6 +471,8 @@ if __name__ == "__main__":
                         found_error = True
                 except:
                     print '* [ ', colored('fail', 'red'),  '] with exception' , sys.exc_info()[0]
+                    print sys.exc_info()[1]
+                    traceback.print_tb(sys.exc_info()[2])
                     found_error = True
     if found_error:
         print 'Not all tests have been passed'
