@@ -57,7 +57,9 @@ def launch( fname, seed = '' ):
     output = ''
     try:
         p = Popen(['./'+fname], shell=None, stdin=PIPE, stdout=PIPE)
+        print seed
         (output, err) = p.communicate(input=seed)
+        print output
         return (output, p.returncode)
     except CalledProcessError as exc:
         return (exc.output, exc.returncode)
@@ -435,7 +437,7 @@ inputs= {'string_length'
          'print_char'    
          : "a c",
          'print_uint'    
-         : ['-1', '12345234121', '0', '12312312', '123123'],
+         : ['-1', '12345234121', '0', '12312312', '123123', '10000000000000000000', '1'],
          'print_int'     
          : ['-1', '-12345234121', '0', '123412312', '123123'],
          'read_char'            
